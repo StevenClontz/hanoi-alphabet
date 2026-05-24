@@ -13,13 +13,14 @@
 	}
 
 	const items = {
-		'in-progress': [
-			{id: 'task-1', content: 'Learn Svelte'},
-			{id: 'task-2', content: 'Build a Kanban board'},
-			{id: 'task-3', content: 'Review code'},
-			{id: 'task-4', content: 'Setup project'},
+		left: [
+			{id: 'A', content: 'A'},
+			{id: 'B', content: 'B'},
+			{id: 'C', content: 'C'},
+			{id: 'D', content: 'D'},
 		],
-		done: [],
+		middle: [],
+		right: [],
 	};
 
 	type Todos = Record<string, Todo[]>;
@@ -33,9 +34,10 @@
 		todos = move(todos, event);
 	}}
 >
-	<div class="grid gap-4 md:grid-cols-2">
-		{@render taskList('in-progress', 'In Progress', todos['in-progress'])}
-		{@render taskList('done', 'Done', todos['done'])}
+	<div class="grid gap-4 grid-cols-3">
+		{@render taskList('left', 'Left', todos['left'])}
+		{@render taskList('middle', 'Middle', todos['middle'])}
+		{@render taskList('right', 'Right', todos['right'])}
 	</div>
 
 	<DragOverlay>
@@ -48,18 +50,18 @@
 
 {#snippet taskList(id: string, title: string, tasks: Todo[])}
 	<Droppable
-		class="bg-#F9F9F9 rd-3xl p-3 pt-6"
+		class="bg-#F9F9F9 rd-3xl p-3 pt-6 h-70vh"
 		{id}
 		type="column"
 		accept="item"
 		collisionPriority={CollisionPriority.Low}
 	>
-		<p class="text-lg fw-bold pb-3">{title}</p>
-
-		<div class="grid gap-2">
-			{#each tasks as task, index (task.id)}
-				<SortableItem {task} id={task.id} index={() => index} group={id} data={{group: id}} type="item" />
-			{/each}
+		<div class="h-full flex flex-col-reverse">
+			<div class="grid gap-2">
+				{#each tasks as task, index (task.id)}
+					<SortableItem {task} id={task.id} index={() => index} group={id} data={{group: id}} type="item" />
+				{/each}
+			</div>
 		</div>
 	</Droppable>
 {/snippet}
