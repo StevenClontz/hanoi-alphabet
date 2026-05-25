@@ -35,6 +35,17 @@
 	let todos = $state<Todos>(items);
 
 	let start = $state<Boolean>(false);
+
+	const startGame = () => {
+		start = true
+		todos.left = todos.left.map((t) => {
+			t.content = t.content.toUpperCase()
+			if (!/^[A-Z]$/.test(t.content)) {
+				t.content = "A"
+			}
+			return t
+		})
+	}
 </script>
 
 <DragDropProvider
@@ -54,7 +65,7 @@
 			{@render taskColumn('middle', todos['middle'])}
 			{@render taskColumn('right', todos['right'])}
 			<div></div>
-			<button onclick={()=>start=true} 
+			<button onclick={startGame} 
 				class="w-20 h-10 p-3 mx-auto text-center border border-gray-100 bg-gray-50 rounded-lg">
 				Start</button>
 		{/if}
