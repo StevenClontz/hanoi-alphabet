@@ -6,6 +6,8 @@
 	let {children} = $props();
 </script>
 
-<main class="px-5 py-10 space-y-16">
-	{@render children()}
+<main class="px-5 py-10 h-screen w-full">
+	<div class="flex justify-center items-center size-full">
+		{@render children()}
+	</div>
 </main>

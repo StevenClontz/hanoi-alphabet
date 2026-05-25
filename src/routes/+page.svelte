@@ -1,8 +1,9 @@
 <script lang="ts">
-	import Section from '$lib/components/section.svelte';
 	import SortableList from '$lib/components/examples/sortable/sortable-list.svelte';
 </script>
 
-<Section id="example-3" title="Game">
+
+
+<section class="droppable-container h-full max-h-80 w-full md:w-8/10 max-w-200">
 	<SortableList />
-</Section>
+</section>

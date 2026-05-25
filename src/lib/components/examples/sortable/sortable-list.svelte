@@ -42,10 +42,10 @@
 		todos = move(todos, event);
 	}}
 >
-	<div class="grid gap-4 grid-cols-3">
-		{@render taskList('left', 'Left', todos['left'])}
-		{@render taskList('middle', 'Middle', todos['middle'])}
-		{@render taskList('right', 'Right', todos['right'])}
+	<div class="grid gap-4 grid-cols-3 h-full">
+		{@render taskList('left', todos['left'])}
+		{@render taskList('middle', todos['middle'])}
+		{@render taskList('right', todos['right'])}
 	</div>
 
 	<DragOverlay>
@@ -60,9 +60,9 @@
 	</DragOverlay>
 </DragDropProvider>
 
-{#snippet taskList(id: string, title: string, tasks: Todo[])}
+{#snippet taskList(id: string, tasks: Todo[])}
 	<Droppable
-		class="bg-#F9F9F9 rd-3xl p-3 pt-6 h-70vh"
+		class="bg-gray-50 border border-gray-200 rd-3xl p-3 pt-6 h-full"
 		{id}
 		type="column"
 		accept="item"
