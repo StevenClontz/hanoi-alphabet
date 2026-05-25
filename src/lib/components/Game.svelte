@@ -7,9 +7,9 @@
 
 	const allDiscs:Disc[] = [
 			{id: 'A', content: 'A', size: 1},
-			{id: 'B', content: 'B', size: 2},
-			{id: 'C', content: 'C', size: 3},
-			{id: 'D', content: 'D', size: 4},
+			{id: 'B', content: 'A', size: 2},
+			{id: 'C', content: 'A', size: 3},
+			{id: 'D', content: 'A', size: 4},
 	]
 
 	const initialTowers = {
@@ -85,36 +85,37 @@
 	}
 </script>
 
-<div class="grid gap-4 grid-cols-3 h-full justify-center items-center">
-	{@render towerColumn('left', towerState.left)}
-	{@render towerColumn('middle', towerState.middle)}
-	{@render towerColumn('right', towerState.right)}
-		<div></div>
-	{#if start}
-		<div class="flex justify-between">
+<div class="h-full">
+	<div class="grid gap-4 grid-cols-3 justify-center items-center h-9/10">
+		{@render towerColumn('left', towerState.left)}
+		{@render towerColumn('middle', towerState.middle)}
+		{@render towerColumn('right', towerState.right)}
+	</div>
+	<div class="h-1/10 flex items-center justify-center">
+		{#if start}
 			<button onclick={resetGame} 
-				class="w-20 h-10 p-3 mx-auto text-center border border-gray-100 bg-gray-50 rounded-lg">
+				class="w-20 h-full p-3 mx-auto text-center border border-gray-100 bg-gray-50 rounded-lg">
 				Reset</button>
-		</div>
-	{:else}
-		<button onclick={startGame} 
-			class="w-20 h-10 p-3 mx-auto text-center border border-gray-100 bg-gray-50 rounded-lg">
-			Start</button>
-	{/if}
+		{:else}
+			<button onclick={startGame} 
+				class="w-20 h-full p-3 mx-auto text-center border border-gray-200 bg-gray-100 rounded-lg">
+				Start</button>
+		{/if}
+	</div>
 </div>
 
 {#snippet towerColumn(id: string, discs: Disc[])}
-	<div class="h-full flex flex-col-reverse bg-gray-50 border border-gray-200 h-full rd-3xl p-3 pt-6">
-		<div class="grid gap-2">
+	<div class="h-4/5 flex flex-col-reverse bg-gray-200 border border-gray-400 rd-3xl px-3 py-6 select-none">
+		<div class="grid gap-4">
 			{#each discs as disc}
-				<div class="relative select-none h-12">
-					<div class="p-2 bg-white rd-18px text-center mx-auto flex items-center justify-between"
-						style="width: {discWidth(disc)}%">
+				<div class="flex-col p-2 bg-gray-50 rd-18px text-center mx-auto"
+					style="width: {discWidth(disc)}%">
+					<div class="w-full flex items-center justify-between">
 						<span>
 							{#if start}
-								<button class="p-1 border rounded-sm border-gray-200"
-									onclick={()=>moveFarLeft(disc)}>&laquo;</button>
-								<button class="p-1 border rounded-sm border-gray-200"
+								<!-- <button class="p-1 border rounded-sm border-gray-200"
+									onclick={()=>moveFarLeft(disc)}>&laquo;</button> -->
+								<button class="p-1 w-5 md:w-10 text-center border rounded-sm border-gray-200"
 									onclick={()=>moveLeft(disc)}>&lt;</button>
 							{/if}
 						</span>
@@ -128,13 +129,14 @@
 						{/if}
 						<span>
 							{#if start}
-								<button class="p-1 border rounded-sm border-gray-200"
+								<button class="p-1 w-5 md:w-10 text-center border rounded-sm border-gray-200"
 									onclick={()=>moveRight(disc)}>&gt;</button>
-								<button class="p-1 border rounded-sm border-gray-200"
-									onclick={()=>moveFarRight(disc)}>&raquo;</button>
+								<!-- <button class="p-1 border rounded-sm border-gray-200"
+									onclick={()=>moveFarRight(disc)}>&raquo;</button> -->
 							{/if}
 						</span>
 					</div>
+					<div class="text-xs">{disc.size}</div>
 				</div>
 			{/each}
 		</div>
