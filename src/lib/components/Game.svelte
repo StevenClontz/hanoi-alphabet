@@ -113,8 +113,8 @@
 					<div class="w-full flex items-center justify-between">
 						<span>
 							{#if start}
-								<!-- <button class="p-1 border rounded-sm border-gray-200"
-									onclick={()=>moveFarLeft(disc)}>&laquo;</button> -->
+								<button class="p-1 border rounded-sm border-gray-200"
+									onclick={()=>moveFarLeft(disc)}>&laquo;</button>
 								<button class="p-1 w-5 md:w-10 text-center border rounded-sm border-gray-200"
 									onclick={()=>moveLeft(disc)}>&lt;</button>
 							{/if}
@@ -131,8 +131,8 @@
 							{#if start}
 								<button class="p-1 w-5 md:w-10 text-center border rounded-sm border-gray-200"
 									onclick={()=>moveRight(disc)}>&gt;</button>
-								<!-- <button class="p-1 border rounded-sm border-gray-200"
-									onclick={()=>moveFarRight(disc)}>&raquo;</button> -->
+								<button class="p-1 border rounded-sm border-gray-200"
+									onclick={()=>moveFarRight(disc)}>&raquo;</button>
 							{/if}
 						</span>
 					</div>
