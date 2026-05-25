@@ -16,7 +16,9 @@
 
 	let {task, width, isOverlay = false, editable = false, ...rest}: Props = $props();
 
-	const {ref, isDragging} = useSortable({...rest, feedback: 'move'});
+	const sortableState = () => useSortable({...rest, feedback: 'move'});
+
+	const {ref, isDragging} = sortableState();
 </script>
 
 <div class="relative select-none h-12" {@attach ref}>
@@ -29,7 +31,7 @@
 				class="w-5 text-center border-dotted border-b-1 border-gray-400"
 				maxlength="1" />
 		{:else}
-			{task.content}
+			{task.content} {rest.disabled}
 		{/if}
 	</div>
 
@@ -39,7 +41,7 @@
 			<!-- You can put any content here for the dragging state -->
 			<div class="w-full h-full p-2 bg-sky/10 rd-18px b-2 b-sky/5 flex items-center justify-center mx-auto"
 				style="width: {width}%">
-				<span class="text-sky">{task.content}</span>
+				<span class="text-sky">{task.content} {rest.disabled}</span>
 			</div>
 		</div>
 	{/if}

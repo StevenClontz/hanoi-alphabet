@@ -46,6 +46,10 @@
 			return t
 		})
 	}
+
+	const disabledTask = (task:Todo,tasks:Todo[]) => {
+		return !start || task.size !== Math.min(...tasks.map(t=>t.size))
+	}
 </script>
 
 <DragDropProvider
@@ -105,6 +109,7 @@
 					index={() => index} 
 					group={id}
 					editable={!start}
+					disabled={{draggable: disabledTask(task,tasks)}}
 					data={{group: id}} 
 					type="item" />
 			{/each}
