@@ -11,9 +11,10 @@
 		task: Task;
 		width: number;
 		isOverlay?: boolean;
+		editable?: boolean;
 	}
 
-	let {task, width, isOverlay = false, ...rest}: Props = $props();
+	let {task, width, isOverlay = false, editable = false, ...rest}: Props = $props();
 
 	const {ref, isDragging} = useSortable({...rest, feedback: 'move'});
 </script>
@@ -22,7 +23,14 @@
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
 	<div class={['p-4 bg-white rd-18px text-center mx-auto', {invisible: isDragging.current && !isOverlay}]}
 		style="width: {width}%">
-		{task.content}
+		{#if editable}
+			<input type="text" 
+				bind:value={task.content} 
+				class="w-5 text-center border-dotted border-b-1 border-gray-400"
+				maxlength="1" />
+		{:else}
+			{task.content}
+		{/if}
 	</div>
 
 	<!-- Drag placeholder - set to match original dimensions -->

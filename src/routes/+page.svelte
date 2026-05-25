@@ -4,6 +4,6 @@
 
 
 
-<section class="droppable-container h-full max-h-80 w-full md:w-8/10 max-w-200">
+<section class="droppable-container h-full max-h-100 w-full md:w-8/10 max-w-200">
 	<SortableList />
 </section>

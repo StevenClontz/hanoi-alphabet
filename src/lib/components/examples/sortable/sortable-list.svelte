@@ -33,6 +33,8 @@
 
 	type Todos = Record<string, Todo[]>;
 	let todos = $state<Todos>(items);
+
+	let start = $state<Boolean>(false);
 </script>
 
 <DragDropProvider
@@ -42,10 +44,20 @@
 		todos = move(todos, event);
 	}}
 >
-	<div class="grid gap-4 grid-cols-3 h-full">
-		{@render taskList('left', todos['left'])}
-		{@render taskList('middle', todos['middle'])}
-		{@render taskList('right', todos['right'])}
+	<div class="grid gap-4 grid-cols-3 h-full justify-center items-center">
+		{#if start}
+			{@render taskList('left', todos['left'])}
+			{@render taskList('middle', todos['middle'])}
+			{@render taskList('right', todos['right'])}
+		{:else}
+			{@render taskColumn('left', todos['left'])}
+			{@render taskColumn('middle', todos['middle'])}
+			{@render taskColumn('right', todos['right'])}
+			<div></div>
+			<button onclick={()=>start=true} 
+				class="w-20 h-10 p-3 mx-auto text-center border border-gray-100 bg-gray-50 rounded-lg">
+				Start</button>
+		{/if}
 	</div>
 
 	<DragOverlay>
@@ -54,7 +66,7 @@
 			<SortableItem id={task.id} 
 				{task}
 				width={taskWidth(task)} 
-				index={0} 
+				index={0}
 				isOverlay />
 		{/snippet}
 	</DragOverlay>
@@ -62,24 +74,29 @@
 
 {#snippet taskList(id: string, tasks: Todo[])}
 	<Droppable
-		class="bg-gray-50 border border-gray-200 rd-3xl p-3 pt-6 h-full"
+		class="h-full"
 		{id}
 		type="column"
 		accept="item"
 		collisionPriority={CollisionPriority.Low}
 	>
-		<div class="h-full flex flex-col-reverse">
-			<div class="grid gap-2">
-				{#each tasks as task, index (task.id)}
-					<SortableItem {task} 
-						width={taskWidth(task)} 
-						id={task.id} 
-						index={() => index} 
-						group={id} 
-						data={{group: id}} 
-						type="item" />
-				{/each}
-			</div>
-		</div>
+		{@render taskColumn(id,tasks)}
 	</Droppable>
+{/snippet}
+
+{#snippet taskColumn(id: string, tasks: Todo[])}
+	<div class="h-full flex flex-col-reverse bg-gray-50 border border-gray-200 h-full rd-3xl p-3 pt-6">
+		<div class="grid gap-2">
+			{#each tasks as task, index (task.id)}
+				<SortableItem {task} 
+					width={taskWidth(task)} 
+					id={task.id} 
+					index={() => index} 
+					group={id}
+					editable={!start}
+					data={{group: id}} 
+					type="item" />
+			{/each}
+		</div>
+	</div>
 {/snippet}
