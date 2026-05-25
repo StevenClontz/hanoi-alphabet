@@ -4,21 +4,24 @@
 	interface Task {
 		id: string | number;
 		content: string;
+		size: number;
 	}
 
 	interface Props extends UseSortableInput {
 		task: Task;
+		width: number;
 		isOverlay?: boolean;
 	}
 
-	let {task, isOverlay = false, ...rest}: Props = $props();
+	let {task, width, isOverlay = false, ...rest}: Props = $props();
 
 	const {ref, isDragging} = useSortable({...rest, feedback: 'move'});
 </script>
 
 <div class="relative select-none h-12" {@attach ref}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
-	<div class={['p-4 bg-white rd-18px text-center', {invisible: isDragging.current && !isOverlay}]}>
+	<div class={['p-4 bg-white rd-18px text-center mx-auto', {invisible: isDragging.current && !isOverlay}]}
+		style="width: {width}%">
 		{task.content}
 	</div>
 
@@ -26,8 +29,9 @@
 	{#if !isOverlay && isDragging.current}
 		<div class="flex items-center justify-center abs inset-0">
 			<!-- You can put any content here for the dragging state -->
-			<div class="w-full h-full p-2 bg-orange/10 rd-18px b-2 b-orange b-dashed flex items-center justify-center">
-				<span class="text-orange">{task.content}</span>
+			<div class="w-full h-full p-2 bg-sky/10 rd-18px b-2 b-sky/5 flex items-center justify-center mx-auto"
+				style="width: {width}%">
+				<span class="text-sky">{task.content}</span>
 			</div>
 		</div>
 	{/if}
