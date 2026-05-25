@@ -94,18 +94,18 @@
 	<div class="h-1/10 flex items-center justify-center">
 		{#if start}
 			<button onclick={resetGame} 
-				class="w-20 h-full p-3 mx-auto text-center border border-gray-100 bg-gray-50 rounded-lg">
+				class="w-20 h-full p-3 mx-auto text-center border border-gray-300 bg-gray-200 rounded-lg">
 				Reset</button>
 		{:else}
 			<button onclick={startGame} 
-				class="w-20 h-full p-3 mx-auto text-center border border-gray-200 bg-gray-100 rounded-lg">
+				class="w-20 h-full p-3 mx-auto text-center border border-gray-300 bg-gray-200 rounded-lg">
 				Start</button>
 		{/if}
 	</div>
 </div>
 
 {#snippet towerColumn(id: string, discs: Disc[])}
-	<div class="h-4/5 flex flex-col-reverse bg-gray-200 border border-gray-400 rd-3xl px-3 py-6 select-none">
+	<div class="h-4/5 flex flex-col-reverse bg-gray-200 border border-gray-400 rd-3xl px-1 md:px-3 py-6 select-none">
 		<div class="grid gap-4">
 			{#each discs as disc}
 				<div class="flex-col p-2 bg-gray-50 rd-18px text-center mx-auto"
