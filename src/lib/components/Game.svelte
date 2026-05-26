@@ -1,16 +1,19 @@
 <script lang="ts">
+	let { multiple = false, discCount = 4 } = $props()
+
 	interface Disc {
 		id: string;
 		content: string;
 		size: number;
 	}
 
-	const allDiscs:Disc[] = [
-			{id: 'A', content: 'A', size: 1},
-			{id: 'B', content: 'A', size: 2},
-			{id: 'C', content: 'A', size: 3},
-			{id: 'D', content: 'A', size: 4},
-	]
+	const allDiscs:Disc[] = [...Array(discCount).keys()].map(i=>{
+		return {
+			id: String.fromCharCode("A".charCodeAt(0)+i),
+			content: "A",
+			size: i+1
+		}
+	})
 
 	const initialTowers = {
 		left: allDiscs,
@@ -113,8 +116,8 @@
 					<div class="w-full flex items-center justify-between">
 						<span>
 							{#if start}
-								<button class="p-1 border rounded-sm border-gray-200"
-									onclick={()=>moveFarLeft(disc)}>&laquo;</button>
+								{#if multiple}<button class="p-1 border rounded-sm border-gray-200"
+									onclick={()=>moveFarLeft(disc)}>&laquo;</button>{/if}
 								<button class="p-1 w-5 md:w-10 text-center border rounded-sm border-gray-200"
 									onclick={()=>moveLeft(disc)}>&lt;</button>
 							{/if}
@@ -131,8 +134,8 @@
 							{#if start}
 								<button class="p-1 w-5 md:w-10 text-center border rounded-sm border-gray-200"
 									onclick={()=>moveRight(disc)}>&gt;</button>
-								<button class="p-1 border rounded-sm border-gray-200"
-									onclick={()=>moveFarRight(disc)}>&raquo;</button>
+								{#if multiple}<button class="p-1 border rounded-sm border-gray-200"
+									onclick={()=>moveFarRight(disc)}>&raquo;</button>{/if}
 							{/if}
 						</span>
 					</div>
