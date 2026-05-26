@@ -29,6 +29,7 @@
 	type DiscRecord = Record<string, Disc[]>;
 	let towerState = $state<DiscRecord>(initialTowers);
 	let start = $state<Boolean>(false);
+	let moves = $state<number>(0);
 
 	const startGame = () => {
 		start = true
@@ -60,6 +61,7 @@
 			canMoveTo(disc,toId)
 		) {
 			cycleContent(disc)
+			moves = moves + 1
 			towerState[fromId] = towerState[fromId].filter(d=>d!==disc)
 			towerState[toId] = [disc,...towerState[toId]]
 		}
@@ -94,14 +96,15 @@
 		{@render towerColumn('middle', towerState.middle)}
 		{@render towerColumn('right', towerState.right)}
 	</div>
-	<div class="h-1/10 flex items-center justify-center">
+	<div class="h-1/10 flex items-center justify-center gap-4">
 		{#if start}
+			<span class="inline-block">Moves: {moves}</span>
 			<button onclick={resetGame} 
-				class="w-20 h-full p-3 mx-auto text-center border border-gray-300 bg-gray-200 rounded-lg">
+				class="w-20 h-full p-3 text-center border border-gray-300 bg-gray-200 rounded-lg">
 				Reset</button>
 		{:else}
 			<button onclick={startGame} 
-				class="w-20 h-full p-3 mx-auto text-center border border-gray-300 bg-gray-200 rounded-lg">
+				class="h-full p-3 mx-auto text-center border border-gray-300 bg-gray-200 rounded-lg">
 				Start</button>
 		{/if}
 	</div>
