@@ -45,6 +45,7 @@
 	const resetGame = () => {
 		start = false
 		towerState = initialTowers
+		moves = 0
 	}
 
 	const canMoveFrom = (disc:Disc,towerId:string) => {
